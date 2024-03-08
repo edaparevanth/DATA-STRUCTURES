@@ -1,0 +1,23 @@
+#include <stdio.h>
+int main() 
+{
+	printf("192372128 / Revanth .\n");
+    int arr[] = {10, 20, 30, 40, 50};
+    int search_element = 50;
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int i, found = 0;
+    for (i = 0; i < size; i++)
+	{
+        if (arr[i] == search_element) 
+		{
+            printf("Element %d found at index %d\n", search_element, i);
+            found = 1;
+            break;
+        }
+    }
+    if (!found) 
+	{
+        printf("Element %d not found in the array\n", search_element);
+    }
+    return 0;
+}
