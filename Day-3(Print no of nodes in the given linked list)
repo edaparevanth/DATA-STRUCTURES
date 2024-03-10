@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+int main() 
+{
+	printf("Revanth / 192372128 .\n");
+    struct Node* head = NULL;
+    struct Node* temp = NULL;
+    int count = 0;
+
+    head = (struct Node*)malloc(sizeof(struct Node));
+    head->data = 1;
+    head->next = NULL;
+
+    temp = (struct Node*)malloc(sizeof(struct Node));
+    temp->data = 2;
+    temp->next = NULL;
+    head->next = temp;
+
+    temp = (struct Node*)malloc(sizeof(struct Node));
+    temp->data = 3;
+    temp->next = NULL;
+    head->next->next = temp;
+
+    temp = head;
+    while (temp != NULL) {
+        count++;
+        temp = temp->next;
+    }
+
+    printf("Number of nodes in the linked list: %d\n", count);
+
+    return 0;
+}
