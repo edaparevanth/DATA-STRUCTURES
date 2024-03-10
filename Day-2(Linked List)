@@ -1,0 +1,186 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* head = NULL;
+
+void InsertBeg(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = head;
+    head = newNode;
+}
+
+void InsertMid(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    struct Node* temp = head;
+    int count = 0;
+    while (temp != NULL) {
+        count++;
+        temp = temp->next;
+    }
+    temp = head;
+    for (int i = 0; i < count / 2; i++) {
+        temp = temp->next;
+    }
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+
+void InsertEnd(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+    if (head == NULL) {
+        head = newNode;
+        return;
+    }
+    struct Node* temp = head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+}
+
+void DeleteBeg() {
+    if (head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+    struct Node* temp = head;
+    head = head->next;
+    free(temp);
+}
+
+void DeleteMid() {
+    if (head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+    struct Node* temp = head;
+    int count = 0;
+    while (temp != NULL) {
+        count++;
+        temp = temp->next;
+    }
+    temp = head;
+    for (int i = 0; i < count / 2 - 1; i++) {
+        temp = temp->next;
+    }
+    struct Node* toDelete = temp->next;
+    temp->next = toDelete->next;
+    free(toDelete);
+}
+
+void DeleteEnd() {
+    if (head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+    struct Node* temp = head;
+    struct Node* prev = NULL;
+    while (temp->next != NULL) {
+        prev = temp;
+        temp = temp->next;
+    }
+    if (prev == NULL) {
+        head = NULL;
+    } else {
+        prev->next = NULL;
+    }
+    free(temp);
+}
+
+void Display() {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int Search(int key) {
+    struct Node* temp = head;
+    int pos = 1;
+    while (temp != NULL) {
+        if (temp->data == key) {
+            return pos;
+        }
+        pos++;
+        temp = temp->next;
+    }
+    return -1;
+}
+
+void Sort() {
+    struct Node* current = head;
+    struct Node* index = NULL;
+    int temp;
+    if (head == NULL) {
+        return;
+    } else {
+        while (current != NULL) {
+            index = current->next;
+            while (index != NULL) {
+                if (current->data > index->data) {
+                    temp = current->data;
+                    current->data = index->data;
+                    index->data = temp;
+                }
+                index = index->next;
+            }
+            current = current->next;
+        }
+    }
+}
+
+void FindMaxMin() {
+    struct Node* temp = head;
+    int max = INT_MIN;
+    int min = INT_MAX;
+    while (temp != NULL) {
+        if (temp->data > max) {
+            max = temp->data;
+        }
+        if (temp->data < min) {
+            min = temp->data;
+        }
+        temp = temp->next;
+    }
+    printf("Max: %d\n", max);
+    printf("Min: %d\n", min);
+}
+
+int main() 
+{
+	printf("Revanth / 192372128 .\n");
+	printf("Elements in list are :\n");
+    InsertBeg(5);
+    InsertMid(4);
+    InsertMid(8);
+    InsertEnd(10);
+    Display();
+    printf("List after deleting element :\n ");
+    DeleteMid();
+    Display();
+    printf("Search the element :\n");
+    int key = 10;
+    int pos = Search(key);
+    if (pos != -1) {
+        printf("Key %d found at position %d\n", key, pos);
+    } else {
+        printf("Key %d not found\n", key);
+    }
+    
+    Sort();
+    Display();
+
+    FindMaxMin();
+
+    return 0;
+}
