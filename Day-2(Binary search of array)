@@ -1,0 +1,36 @@
+#include <stdio.h>
+int main() 
+{
+	printf("Revanth / 192372128 .\n");
+    int arr[] = {2, 3, 4, 10, 40};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int target = 10;
+    int left = 0;
+    int right = n - 1;
+    int mid;
+
+    while (left <= right) 
+	{
+        mid = left + (right - left) / 2;
+
+        if (arr[mid] == target) 
+		{
+            printf("Element found at index %d\n", mid);
+            break;
+        }
+
+        if (arr[mid] < target) 
+		{
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    if (left > right) 
+	{
+        printf("Element not found in the array\n");
+    }
+
+    return 0;
+}
